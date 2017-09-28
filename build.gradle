@@ -31,15 +31,16 @@ targetCompatibility = 1.8
 
 dependencies {
 
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-jetty'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.hashids:hashids:1.0.3'
 
     testCompile 'junit:junit'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
 task wrapper(type: Wrapper) {

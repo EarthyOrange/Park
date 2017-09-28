@@ -17,10 +17,15 @@ class SessionController {
         return "redirect:/loginFailure"
     }
 
+    @RequestMapping(value = "/register", method = arrayOf(RequestMethod.POST))
+    fun register(): String {
+        //ToDo: Figure out register logic
+        return ""
+    }
+
     @RequestMapping(value = "/loginFailure", method = arrayOf(RequestMethod.GET))
     fun loginFailure(): String = "Failed to Login to Park App\n"
 
-    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/logout", method = arrayOf(RequestMethod.GET))
     fun logout(): String = "Logged Out of Park App\n"
 }

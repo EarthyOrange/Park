@@ -1,7 +1,9 @@
 package Entities
 
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.Type
 import java.io.Serializable
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -12,11 +14,6 @@ import javax.persistence.*
 @Entity
 @Table(name = "user_details")
 data class UserDetails(
-        /**
-         * The UserId field for the user details table.
-         */
-        @Id @GeneratedValue(generator = "uuid2") @GenericGenerator(name = "uuid2", strategy = "uuid2")
-        @Column(name = "user_id") var userId: Byte,
         /**
          * The first name field for the user details table.
          */
@@ -30,18 +27,29 @@ data class UserDetails(
          */
         @Column(name = "phone_number") var phoneNumber: String,
         /**
-         * The rating table for the user details table.
+         * The area code field for the user details table.
          */
-        @Column(name = "rating") var rating: Double,
+        @Column(name = "area_code") var areaCode: String,
         /**
-         * The user login information containing the password for the user.
+         * The rating field for the user details table.
          */
-        @OneToOne(cascade = arrayOf(CascadeType.ALL)) @PrimaryKeyJoinColumn
-        var userLogin: UserLogin
+        @Column(name = "rating") var rating: Double
 ): Serializable {
 
+    /**
+     * The UserId field for the user details table.
+     */
+    @Id @Type(type = "uuid-binary")
+    @GeneratedValue(generator = "uuid2") @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "user_id")
+    var userId: UUID? = null
+
+    @OneToOne(cascade = arrayOf(CascadeType.ALL))
+    @PrimaryKeyJoinColumn
+    var userLogin: UserLogin? = null
+
     @Suppress("unused")
-    constructor() : this("".toByte(), "", "", "", 0.0, UserLogin())
+    constructor(): this("", "", "", "", 0.0)
 
     companion object {
         @JvmStatic val serialVersionUID: Long = 1L
